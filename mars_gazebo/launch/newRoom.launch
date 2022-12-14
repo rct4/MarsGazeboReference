@@ -1,0 +1,14 @@
+<launch>
+
+
+	<arg name="x" default="0"/>
+	<arg name="y" default="0"/>
+	<arg name="z" default="4"/>
+	
+	<include file="$(find mars_gazebo)/launch/room.launch/>	
+	
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(find mars_gazebo)/robots/newRail.urdf" />
+	
+	<node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf"  args="-urdf -model newRail -x $(arg x) -y $(arg y) -z $(arg z) -param robot_description" />
+	
+</launch>

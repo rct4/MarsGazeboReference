@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<robot name="railBot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find railBot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find railBot_description)/urdf/railBot.trans" />
+<xacro:include filename="$(find railBot_description)/urdf/railBot.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.06305118662696127 0.990620741894074 0.015573740724013305" rpy="0 0 0"/>
+    <mass value="1028.3668437650365"/>
+    <inertia ixx="347.553163" iyy="39.502263" izz="382.044817" ixy="-21.605589" iyz="6.247537" ixz="2.013385"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://railBot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://railBot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="slider_1">
+  <inertial>
+    <origin xyz="-0.002646320166134794 -0.1679802996301114 0.018990671437047302" rpy="0 0 0"/>
+    <mass value="18.8400004491806"/>
+    <inertia ixx="0.335794" iyy="0.056962" izz="0.388732" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.105293 -1.275961 -0.144519" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://railBot_description/meshes/slider_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.105293 -1.275961 -0.144519" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://railBot_description/meshes/slider_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Slider2" type="prismatic">
+  <origin xyz="0.105293 1.275961 0.144519" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="slider_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit upper="0.0" lower="0.0" effort="100" velocity="100"/>
+</joint>
+
+</robot>

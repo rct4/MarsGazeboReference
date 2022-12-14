@@ -1,0 +1,65 @@
+<sdf version='1.7'>
+  <model name='newRail'>
+    <link name='base_footprint'>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>50</mass>
+        <inertia>
+          <ixx>50</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>50</iyy>
+          <iyz>0</iyz>
+          <izz>50</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_footprint_fixed_joint_lump__bumper_collision_collision'>
+        <pose>0 0 1.25 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.41 0.11 0.051</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name='base_footprint_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.001 0.001 0.001</size>
+          </box>
+        </geometry>
+      </visual>
+      <visual name='base_footprint_fixed_joint_lump__base_link_visual_1'>
+        <pose>0 0 1.25 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.4 0.1 0.05</size>
+          </box>
+        </geometry>
+      </visual>
+      <sensor name='main_bumper' type='contact'>
+        <contact>
+          <collision>bumper_collision_collision</collision>
+          <topic>__default_topic__</topic>
+        </contact>
+        <plugin name='gazebo_ros_bumper_controller' filename='libgazebo_ros_bumper.so'>
+          <bumperTopicName>bumper_vals</bumperTopicName>
+          <frameName>world</frameName>
+        </plugin>
+        <pose>0 0 1.25 0 -0 0</pose>
+        <selfCollide>1</selfCollide>
+        <alwaysOn>1</alwaysOn>
+        <updateRate>15.0</updateRate>
+        <material>Gazebo/Red</material>
+      </sensor>
+    </link>
+    <static>0</static>
+    <plugin name='object_controller' filename='libgazebo_ros_planar_move.so'>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometryRate>20.0</odometryRate>
+      <robotBaseFrame>base_footprint</robotBaseFrame>
+    </plugin>
+  </model>
+</sdf>
